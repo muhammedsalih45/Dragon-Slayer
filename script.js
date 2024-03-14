@@ -58,7 +58,11 @@ const locations = [
   },
   {
     name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
+    "button text": [
+      "Slime ile savaş",
+      "Hortlak ile savaş",
+      "Şehir merkezine dön",
+    ],
     "button functions": [fightSlime, fightBeast, goTown],
     text: "Mağaraya girdin. Bazı canavarlar gördün. Savaşmaya hazırlıklı ol.",
   },
