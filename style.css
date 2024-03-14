@@ -1,0 +1,68 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #0a0a23;
+  background-image: url("https://i.pinimg.com/originals/70/9a/bf/709abf01d17e599c6319d4ffe5100d4c.gif");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 97vh;
+  width: 99%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+#text {
+  background-color: #0a0a23;
+  color: #eeff00;
+  padding: 10px;
+  justify-content: center;
+  display: flex;
+}
+
+#game {
+  min-width: 87%;
+  max-height: 400px;
+  background-color: #575757;
+  color: rgb(251, 255, 0);
+  margin: 30px auto 0px;
+  padding: 10px;
+  border-radius: 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: linear-gradient(#33004b, #1a0047, #1c0049, #003f3f);
+}
+
+#controls,
+#stats {
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #eeff00;
+  justify-content: center;
+  display: flex;
+}
+
+#monsterStats {
+  display: none;
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  justify-content: center;
+  color: #ffffff;
+  background-color: #c70d0d;
+}
+
+.stat {
+  padding-right: 10px;
+}
+
+button {
+  cursor: pointer;
+  color: #0a0a23;
+  background-color: #feac32;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #feac32;
+  margin: 2px;
+  border-radius: 5px;
+}
