@@ -207,7 +207,7 @@ function buyHealth() {
 function buyWeapon() {
   if (currentWeapon < weapons.length - 1) {
     if (gold >= 50) {
-      // gold -= 50;
+      gold -= 50;
       currentWeapon++;
       goldText.innerText = gold;
       let newWeapon = weapons[currentWeapon].name;
@@ -227,7 +227,7 @@ function buyWeapon() {
 function buyArmor() {
   if (currentArmor < armor.length - 1) {
     if (gold >= 85) {
-      // gold -= 85;
+      gold -= 85;
       currentArmor++;
       goldText.innerText = gold;
       let newArmor = armor[currentArmor].name;
