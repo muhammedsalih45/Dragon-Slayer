@@ -335,7 +335,7 @@ function reduceDamage(monsterAttackValue, armorName) {
   let damageReduction = 0;
   switch (armorName) {
     case "Goblin Döküm Zırhı":
-      damageReduction = 10;
+      damageReduction = 5;
       break;
     case "Gölge Dansçısı Zırhı":
       damageReduction = 15;
