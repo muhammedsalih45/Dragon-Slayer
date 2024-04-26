@@ -181,7 +181,7 @@ function goCave() {
   );
 
   button4.style.display = "block";
-  button4.innerText = "Derin Mağaraya Git";
+  button4.innerText = "Mağara derinliklerine git";
   button4.onclick = goDeepCave;
 }
 
