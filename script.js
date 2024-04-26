@@ -24,13 +24,19 @@ const armor = [
   { name: "Buzul Muhafız Zırhı" },
   { name: "Karanlık Orman Zırhı" },
   { name: "Demir Melek Zırhı" },
+  { name: "Ejder Pullu savaş zırhı" },
+  { name: "Semavi Altın Zırh" },
+  { name: "Fırtına Kabuğu Zırhı" },
 ];
 const weapons = [
   { name: "Körelmiş Kanlı Balta", power: 5 },
-  { name: "Fırtına Yayı", power: 30 },
-  { name: "Ayın Mızrağı", power: 50 },
-  { name: "Kaos Bıçakları", power: 70 },
-  { name: "Ejderha Katili", power: 100 },
+  { name: "Fırtına Yayı", power: 15 },
+  { name: "Güneş Mızrağı", power: 25 },
+  { name: "Kaos Bıçakları", power: 35 },
+  { name: "Ejderha Katili", power: 45 },
+  { name: "Şafak Kırıcı", power: 55 },
+  { name: "Kanlı Hilal Kaması", power: 65 },
+  { name: "Excalibur Kılıcı", power: 80 },
 ];
 const monsters = [
   {
@@ -55,8 +61,8 @@ const monsters = [
   },
   {
     name: "Ejderha",
-    level: 20,
-    health: 300,
+    level: 30,
+    health: 400,
   },
 ];
 const locations = [
@@ -213,7 +219,6 @@ function buyWeapon() {
       let newWeapon = weapons[currentWeapon].name;
       text.innerText = "Yeni silah " + newWeapon + ".";
       inventory.push(newWeapon);
-      text.innerText += " Envanterinizde şunlar var: " + inventory;
     } else {
       text.innerText = "Silah almak için yeterli altınınız yok.";
     }
@@ -338,16 +343,25 @@ function reduceDamage(monsterAttackValue, armorName) {
       damageReduction = 5;
       break;
     case "Gölge Dansçısı Zırhı":
-      damageReduction = 15;
+      damageReduction = 10;
       break;
     case "Buzul Muhafız Zırhı":
-      damageReduction = 25;
+      damageReduction = 15;
       break;
     case "Karanlık Orman Zırhı":
-      damageReduction = 35;
+      damageReduction = 20;
       break;
     case "Demir Melek Zırhı":
-      damageReduction = 45;
+      damageReduction = 25;
+      break;
+    case "Ejder Pullu Savaş Zırhı":
+      damageReduction = 30;
+      break;
+    case "Semavi Altın Zırh":
+      damageReduction = 35;
+      break;
+    case "Fırtına Kabuğu Zırhı":
+      damageReduction = 50;
       break;
     default:
       damageReduction = 0;
