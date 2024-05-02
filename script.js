@@ -83,7 +83,7 @@ const locations = [
       "Zırh al (85 Altın)",
     ],
     "button functions": [buyHealth, buyWeapon, goTown],
-    text: "Tüccar: Ne almak istersiniz?",
+    text: "Ne almak istersiniz yüce kahraman",
   },
   {
     name: "cave",
@@ -104,13 +104,13 @@ const locations = [
       "Şehir merkezine dön",
     ],
     "button functions": [fightGrifon, fightGolem, goCave, goTown],
-    text: "Mağaranın daha derinlerini indin ve daha güçlü canavarlar gördün. Temkinli olmakta fayda var.",
+    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gördün çıkış olabileceğini düşündün ve oraya doğru gittin. Burasıda ne böyle yıkılmış bir kilise mi?  Temkinli olmakta fayda var.",
   },
   {
     name: "fight",
     "button text": ["Saldır", "Kaçın", "Kaç"],
     "button functions": [attack, dodge, goTown],
-    text: "Bir canavarla savaşıyosun.",
+    text: "Bir canavara denk geldin. Gel bakalım buraya pis mahluk.",
   },
   {
     name: "kill monster",
@@ -275,50 +275,12 @@ function buyArmor() {
     button4.innerText = "20 Altın için eski zırhlarınızı satabilirsiniz.";
     button4.onclick = sellArmor;
   }
-
-  // Clear the storeList div
   storeList.innerHTML = "";
 
-  // Add armor to the storeList
-  for (let i = 1; i < armor.length; i++) {
-    const armorItem = armor[i];
-    const armorButton = document.createElement("button");
-    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Zırh)";
-    armorButton.onclick = buyArmor.bind(null, i);
-    storeList.appendChild(armorButton);
+  for (let i = 0; i < armor.length; i++) {
+    const element = [i];
   }
 }
-
-// Add event listener to the document
-document.addEventListener("click", (event) => {
-  // Check if the clicked element is not the store list or its children
-  if (!event.target.closest("#storeList")) {
-    // Close the store list
-    storeList.style.display = "none";
-  }
-});
-
-// Select the store list buttons
-const storeListButtons = document.querySelectorAll("#storeList button");
-
-// Add event listeners to the store list buttons
-storeListButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    // Change the button style when clicked
-    button.style.backgroundColor = "yourColorValue"; // Replace "yourColorValue" with the desired color
-    button.style.color = "yourTextColor"; // Replace "yourTextColor" with the desired text color
-  });
-});
-
-// Add event listener to the store list
-storeList.addEventListener("mouseleave", () => {
-  // Reset the button styles when the mouse leaves the store list
-  storeListButtons.forEach((button) => {
-    button.style.backgroundColor = "";
-    button.style.color = "";
-  });
-});
-
 function sellWeapon() {
   if (inventory.length > 1) {
     gold += 15;
