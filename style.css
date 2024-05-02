@@ -10,6 +10,26 @@ body {
   justify-content: center;
 }
 
+.container {
+  min-width: 87%;
+  max-width: 87%;
+}
+
+.storeList,
+button.storeList {
+  background-image: linear-gradient(
+    rgb(59, 1, 173),
+    rgb(15, 0, 176),
+    rgb(51, 0, 99)
+  );
+  width: 30%;
+  margin: 10px;
+  padding: 30px;
+  color: rgb(238, 255, 0);
+  margin-left: 65%;
+  border-radius: 30px;
+}
+
 #text {
   background-color: rgb(10, 10, 35);
   color: rgb(238, 255, 0);
@@ -73,6 +93,6 @@ button {
   border-style: solid;
   border-color: rgb(254, 172, 50);
   border-image: initial;
-  margin: 2px;
+  margin: 5px;
   border-radius: 5px;
 }

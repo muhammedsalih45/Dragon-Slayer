@@ -18,15 +18,16 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+const storeList = document.getElementById("storeList");
 const armor = [
-  { name: "Goblin Döküm Zırhı" },
-  { name: "Gölge Dansçısı Zırhı" },
-  { name: "Buzul Muhafız Zırhı" },
-  { name: "Karanlık Orman Zırhı" },
-  { name: "Demir Melek Zırhı" },
-  { name: "Ejder Pullu savaş zırhı" },
-  { name: "Semavi Altın Zırh" },
-  { name: "Fırtına Kabuğu Zırhı" },
+  { name: "Goblin Döküm Zırhı", power: 5 },
+  { name: "Gölge Dansçısı Zırhı", power: 10 },
+  { name: "Buzul Muhafız Zırhı", power: 15 },
+  { name: "Karanlık Orman Zırhı", power: 20 },
+  { name: "Demir Melek Zırhı", power: 25 },
+  { name: "Ejder Pullu savaş zırhı", power: 30 },
+  { name: "Semavi Altın Zırh", power: 35 },
+  { name: "Fırtına Kabuğu Zırhı", power: 50 },
 ];
 const weapons = [
   { name: "Körelmiş Kanlı Balta", power: 5 },
@@ -36,6 +37,7 @@ const weapons = [
   { name: "Ejderha Katili", power: 45 },
   { name: "Şafak Kırıcı", power: 55 },
   { name: "Kanlı Hilal Kaması", power: 65 },
+  { name: "Draupnir Mızrağı", power: 75 },
   { name: "Excalibur Kılıcı", power: 80 },
 ];
 const monsters = [
@@ -144,7 +146,23 @@ const locations = [
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
+storeList.style.display = "none";
 
+storeList.forEach((button) => {
+  button.addEventListener("click", () => {
+    storeList.style.display = "block";
+  });
+});
+
+// Initialize the other buttons
+const otherButtons = [button1, button2, button3, button4];
+
+// Add event listeners to the other buttons
+otherButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    storeList.style.display = "none";
+  });
+});
 function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
@@ -175,6 +193,7 @@ function goTown() {
 
 function goStore() {
   update(locations[1]);
+  storeList.style.display = "block";
   changeBackground(
     "https://i.pinimg.com/originals/3a/05/fa/3a05faad64800e1cce421f4c013b1bc4.gif"
   );
@@ -227,6 +246,16 @@ function buyWeapon() {
     button2.innerText = "15 Altın için eski silahlarınızı satabilirsiniz";
     button2.onclick = sellWeapon;
   }
+
+  storeList.innerHTML = "";
+
+  for (let i = 1; i < weapons.length; i++) {
+    const weapon = weapons[i];
+    const weaponButton = document.createElement("button");
+    weaponButton.innerText = weapon.name + " (" + weapon.power + " Güç)";
+    weaponButton.onclick = buyWeapon.bind(null, i);
+    storeList.appendChild(weaponButton);
+  }
 }
 
 function buyArmor() {
@@ -246,7 +275,49 @@ function buyArmor() {
     button4.innerText = "20 Altın için eski zırhlarınızı satabilirsiniz.";
     button4.onclick = sellArmor;
   }
+
+  // Clear the storeList div
+  storeList.innerHTML = "";
+
+  // Add armor to the storeList
+  for (let i = 1; i < armor.length; i++) {
+    const armorItem = armor[i];
+    const armorButton = document.createElement("button");
+    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Zırh)";
+    armorButton.onclick = buyArmor.bind(null, i);
+    storeList.appendChild(armorButton);
+  }
 }
+
+// Add event listener to the document
+document.addEventListener("click", (event) => {
+  // Check if the clicked element is not the store list or its children
+  if (!event.target.closest("#storeList")) {
+    // Close the store list
+    storeList.style.display = "none";
+  }
+});
+
+// Select the store list buttons
+const storeListButtons = document.querySelectorAll("#storeList button");
+
+// Add event listeners to the store list buttons
+storeListButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    // Change the button style when clicked
+    button.style.backgroundColor = "yourColorValue"; // Replace "yourColorValue" with the desired color
+    button.style.color = "yourTextColor"; // Replace "yourTextColor" with the desired text color
+  });
+});
+
+// Add event listener to the store list
+storeList.addEventListener("mouseleave", () => {
+  // Reset the button styles when the mouse leaves the store list
+  storeListButtons.forEach((button) => {
+    button.style.backgroundColor = "";
+    button.style.color = "";
+  });
+});
 
 function sellWeapon() {
   if (inventory.length > 1) {
