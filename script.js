@@ -21,25 +21,27 @@ const monsterHealthText = document.querySelector("#monsterHealth");
 const storeList = document.getElementById("storeList");
 const armor = [
   { name: "Goblin Döküm Zırhı", power: 5 },
-  { name: "Gölge Dansçısı Zırhı", power: 10 },
-  { name: "Buzul Muhafız Zırhı", power: 15 },
-  { name: "Karanlık Orman Zırhı", power: 20 },
-  { name: "Demir Melek Zırhı", power: 25 },
-  { name: "Ejder Pullu savaş zırhı", power: 30 },
-  { name: "Semavi Altın Zırh", power: 35 },
-  { name: "Fırtına Kabuğu Zırhı", power: 50 },
+  { name: "Gölge Dansçısı Zırhı", power: 10, price: 80 },
+  { name: "Buzul Muhafız Zırhı", power: 15, price: 90 },
+  { name: "Karanlık Orman Zırhı", power: 20, price: 100 },
+  { name: "Demir Melek Zırhı", power: 25, price: 110 },
+  { name: "Ejder Pullu savaş zırhı", power: 30, price: 110 },
+  { name: "Semavi Altın Zırh", power: 35, price: 120 },
+  { name: "Fırtına Kabuğu Zırhı", power: 50, price: 130 },
 ];
 const weapons = [
   { name: "Körelmiş Kanlı Balta", power: 5 },
-  { name: "Fırtına Yayı", power: 15 },
-  { name: "Güneş Mızrağı", power: 25 },
-  { name: "Kaos Bıçakları", power: 35 },
-  { name: "Ejderha Katili", power: 45 },
-  { name: "Şafak Kırıcı", power: 55 },
-  { name: "Kanlı Hilal Kaması", power: 65 },
-  { name: "Draupnir Mızrağı", power: 75 },
-  { name: "Excalibur Kılıcı", power: 80 },
+  { name: "Fırtına Yayı", power: 15, price: 50 },
+  { name: "Güneş Mızrağı", power: 25, price: 60 },
+  { name: "Kaos Bıçakları", power: 35, price: 70 },
+  { name: "Ejderha Katili", power: 45, price: 80 },
+  { name: "Şafak Kırıcı", power: 55, price: 90 },
+  { name: "Kanlı Hilal Kaması", power: 65, price: 100 },
+  { name: "Draupnir Mızrağı", power: 75, price: 110 },
+  { name: "Excalibur Kılıcı", power: 80, price: 120 },
 ];
+const shoppingData = [];
+
 const monsters = [
   {
     name: "slime",
@@ -53,13 +55,13 @@ const monsters = [
   },
   {
     name: "Grifon",
-    level: 10,
-    health: 100,
+    level: 20,
+    health: 120,
   },
   {
     name: "Dağ golemi",
-    level: 13,
-    health: 130,
+    level: 25,
+    health: 150,
   },
   {
     name: "Ejderha",
@@ -130,8 +132,8 @@ const locations = [
   },
   {
     name: "win",
-    "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "Şehir Meydanına Dön?"],
-    "button functions": [restart, restart, goTown],
+    "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "TEKRAR DENE?"],
+    "button functions": [restart, restart, restart],
     text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389;",
   },
   {
@@ -215,26 +217,36 @@ function buyHealth() {
   }
 }
 
-function buyWeapon() {
-  storeList.style.display = "block";
+function buyWeapon(weaponIndex) {
+  function buyArmor() {
+    storeList.style.display = "block";
+    let selectedArmors = [];
 
-  if (currentWeapon < weapons.length - 1) {
-    if (gold >= 50) {
-      gold -= 50;
-      currentWeapon++;
-      goldText.innerText = gold;
-      let newWeapon = weapons[currentWeapon].name;
-      text.innerText = "Yeni silah " + newWeapon + ".";
-      inventory.push(newWeapon);
-    } else {
-      text.innerText = "Silah almak için yeterli altınınız yok.";
+    for (let i = 1; i < armor.length; i++) {
+      const armorcheck = document.getElementById("armor" + i);
+      if (armorcheck.checked) {
+        selectedArmors.push(armor[i]);
+      }
     }
-  } else {
-    text.innerText = "Zaten en güçlü silaha sahipsiniz!";
-    button2.innerText = "15 Altın için eski silahlarınızı satabilirsiniz";
-    button2.onclick = sellWeapon;
-  }
 
+    if (selectedArmors.length > 0) {
+      if (gold >= 85 * selectedArmors.length) {
+        gold -= 85 * selectedArmors.length;
+        goldText.innerText = gold;
+        let newArmors = selectedArmors.map((armor) => armor.name);
+        text.innerText = "Yeni zırhlar " + newArmors.join(", ") + ".";
+        shoppingData.push(...selectedArmors); // Update shoppingData with selected armors
+      } else {
+        text.innerText = "Zırh almak için yeterli altınınız yok.";
+      }
+    } else {
+      text.innerText = "Lütfen bir zırh seçin.";
+    }
+
+    // Clear the checkboxes and close the storeList
+    clearCheckboxes();
+    storeList.style.display = "none";
+  }
   storeList.innerHTML = "";
 
   for (let i = 1; i < weapons.length; i++) {
@@ -243,16 +255,17 @@ function buyWeapon() {
     weaponcheck.type = "checkbox";
     weaponcheck.id = "weapon" + i;
     weaponcheck.style.marginTop = "-6%";
-    weaponcheck.style.marginBottom = "20px";
+    weaponcheck.style.marginBottom = "25px";
     const weaponButton = document.createElement("div");
     weaponButton.style.textAlign = "center";
     weaponButton.style.marginBottom = "5px";
-    weaponButton.innerText = weapon.name + " (" + weapon.power + " Güç)";
+    weaponButton.innerText =
+      weapon.name + " (" + weapon.power + " Güç, " + weapon.price + " Altın)";
     weaponButton.onclick = buyWeapon.bind(null, i);
     const closeButton = document.createElement("div");
     closeButton.style.position = "absolute";
     closeButton.style.display = "block";
-    closeButton.style.top = "29%";
+    closeButton.style.top = "23%";
     closeButton.style.right = "8%";
     closeButton.style.padding = "5px";
     closeButton.style.cursor = "pointer";
@@ -265,11 +278,13 @@ function buyWeapon() {
     storeList.appendChild(weaponButton);
     storeList.appendChild(weaponcheck);
   }
+
   const weaponButton2 = document.createElement("button");
   weaponButton2.innerText = "Eşyayı al";
   weaponButton2.style.display = "block";
   weaponButton2.style.width = "100%";
   weaponButton2.style.borderRadius = "30px";
+  weaponButton2.style.cursor = "pointer";
   weaponButton2.style.border = "none";
   weaponButton2.style.backgroundImage =
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51))";
@@ -277,12 +292,13 @@ function buyWeapon() {
   storeList.appendChild(weaponButton2);
 }
 
-function buyArmor() {
+function buyArmor(armorIndex) {
   storeList.style.display = "block";
 
+  // if (armorIndex !== undefined && armorIndex < armor.length) {
   if (currentArmor < armor.length - 1) {
     if (gold >= 85) {
-      gold -= 85;
+      // gold -= armor.price;
       currentArmor++;
       goldText.innerText = gold;
       let newArmor = armor[currentArmor].name;
@@ -296,9 +312,10 @@ function buyArmor() {
     button4.innerText = "20 Altın için eski zırhlarınızı satabilirsiniz.";
     button4.onclick = sellArmor;
   }
+  // }
   storeList.innerHTML = "";
 
-  for (let i = 0; i < armor.length; i++) {
+  for (let i = 1; i < armor.length; i++) {
     const armorItem = armor[i];
     const armorcheck = document.createElement("input");
     armorcheck.type = "checkbox";
@@ -308,12 +325,25 @@ function buyArmor() {
     const armorButton = document.createElement("div");
     armorButton.style.textAlign = "center";
     armorButton.style.marginBottom = "10px";
-    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Güç) ";
-    armorButton.onclick = buyArmor.bind(null, i);
+    armorButton.disabled = "true";
+    armorButton.innerText =
+      armorItem.name +
+      " (" +
+      armorItem.power +
+      " Güç, " +
+      armorItem.price +
+      " Altın)";
+    armorcheck.addEventListener("click", function () {
+      if (armorcheck.checked) {
+        armorButton2.disabled = false;
+      } else {
+        armorButton2.disabled = true;
+      }
+    });
     const closeButton = document.createElement("div");
     closeButton.style.position = "absolute";
     closeButton.style.display = "block";
-    closeButton.style.top = "23%";
+    closeButton.style.top = "28%";
     closeButton.style.right = "8%";
     closeButton.style.padding = "5px";
     closeButton.style.cursor = "pointer";
@@ -331,6 +361,7 @@ function buyArmor() {
   armorButton2.style.display = "block";
   armorButton2.style.width = "100%";
   armorButton2.style.borderRadius = "30px";
+  armorButton2.style.cursor = "pointer";
   armorButton2.style.border = "none";
   armorButton2.style.backgroundImage =
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51))";
