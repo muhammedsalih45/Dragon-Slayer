@@ -179,7 +179,7 @@ function goTown() {
 
 function goStore() {
   update(locations[1]);
-  storeList.style.display = "block";
+  storeList.style.display = "none";
   changeBackground(
     "https://i.pinimg.com/originals/3a/05/fa/3a05faad64800e1cce421f4c013b1bc4.gif"
   );
@@ -216,6 +216,8 @@ function buyHealth() {
 }
 
 function buyWeapon() {
+  storeList.style.display = "block";
+
   if (currentWeapon < weapons.length - 1) {
     if (gold >= 50) {
       gold -= 50;
@@ -237,14 +239,47 @@ function buyWeapon() {
 
   for (let i = 1; i < weapons.length; i++) {
     const weapon = weapons[i];
-    const weaponButton = document.createElement("button");
+    const weaponcheck = document.createElement("input");
+    weaponcheck.type = "checkbox";
+    weaponcheck.id = "weapon" + i;
+    weaponcheck.style.marginTop = "-6%";
+    weaponcheck.style.marginBottom = "20px";
+    const weaponButton = document.createElement("div");
+    weaponButton.style.textAlign = "center";
+    weaponButton.style.marginBottom = "5px";
     weaponButton.innerText = weapon.name + " (" + weapon.power + " Güç)";
     weaponButton.onclick = buyWeapon.bind(null, i);
+    const closeButton = document.createElement("div");
+    closeButton.style.position = "absolute";
+    closeButton.style.display = "block";
+    closeButton.style.top = "29%";
+    closeButton.style.right = "8%";
+    closeButton.style.padding = "5px";
+    closeButton.style.cursor = "pointer";
+    closeButton.innerText = "X";
+    closeButton.onclick = function () {
+      storeList.style.display =
+        storeList.style.display === "none" ? "block" : "none";
+    };
+    storeList.appendChild(closeButton);
     storeList.appendChild(weaponButton);
+    storeList.appendChild(weaponcheck);
   }
+  const weaponButton2 = document.createElement("button");
+  weaponButton2.innerText = "Eşyayı al";
+  weaponButton2.style.display = "block";
+  weaponButton2.style.width = "100%";
+  weaponButton2.style.borderRadius = "30px";
+  weaponButton2.style.border = "none";
+  weaponButton2.style.backgroundImage =
+    "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51))";
+  weaponButton2.style.padding = "10px";
+  storeList.appendChild(weaponButton2);
 }
 
 function buyArmor() {
+  storeList.style.display = "block";
+
   if (currentArmor < armor.length - 1) {
     if (gold >= 85) {
       gold -= 85;
@@ -265,11 +300,42 @@ function buyArmor() {
 
   for (let i = 0; i < armor.length; i++) {
     const armorItem = armor[i];
-    const armorButton = document.createElement("button");
-    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Güç)";
+    const armorcheck = document.createElement("input");
+    armorcheck.type = "checkbox";
+    armorcheck.id = "armor" + i;
+    armorcheck.style.marginTop = "-6%";
+    armorcheck.style.marginBottom = "20px";
+    const armorButton = document.createElement("div");
+    armorButton.style.textAlign = "center";
+    armorButton.style.marginBottom = "10px";
+    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Güç) ";
     armorButton.onclick = buyArmor.bind(null, i);
+    const closeButton = document.createElement("div");
+    closeButton.style.position = "absolute";
+    closeButton.style.display = "block";
+    closeButton.style.top = "23%";
+    closeButton.style.right = "8%";
+    closeButton.style.padding = "5px";
+    closeButton.style.cursor = "pointer";
+    closeButton.innerText = "X";
+    closeButton.onclick = function () {
+      storeList.style.display =
+        storeList.style.display === "none" ? "block" : "none";
+    };
+    storeList.appendChild(closeButton);
     storeList.appendChild(armorButton);
+    storeList.appendChild(armorcheck);
   }
+  const armorButton2 = document.createElement("button");
+  armorButton2.innerText = "Eşyayı al";
+  armorButton2.style.display = "block";
+  armorButton2.style.width = "100%";
+  armorButton2.style.borderRadius = "30px";
+  armorButton2.style.border = "none";
+  armorButton2.style.backgroundImage =
+    "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51))";
+  armorButton2.style.padding = "10px";
+  storeList.appendChild(armorButton2);
 }
 function sellWeapon() {
   if (inventory.length > 1) {

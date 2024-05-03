@@ -83,7 +83,7 @@ body {
   padding-right: 10px;
 }
 
-button {
+.gameButton {
   cursor: pointer;
   color: rgb(10, 10, 35);
   background-color: rgb(254, 172, 50);
