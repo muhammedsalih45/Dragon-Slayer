@@ -15,8 +15,7 @@ body {
   max-width: 87%;
 }
 
-.storeList,
-button.storeList {
+.storeList {
   background-image: linear-gradient(
     rgb(59, 1, 173),
     rgb(15, 0, 176),

@@ -148,21 +148,6 @@ button2.onclick = goCave;
 button3.onclick = fightDragon;
 storeList.style.display = "none";
 
-storeList.forEach((button) => {
-  button.addEventListener("click", () => {
-    storeList.style.display = "block";
-  });
-});
-
-// Initialize the other buttons
-const otherButtons = [button1, button2, button3, button4];
-
-// Add event listeners to the other buttons
-otherButtons.forEach((button) => {
-  button.addEventListener("click", () => {
-    storeList.style.display = "none";
-  });
-});
 function update(location) {
   monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
@@ -186,6 +171,7 @@ function update(location) {
 
 function goTown() {
   update(locations[0]);
+  storeList.style.display = "none";
   changeBackground(
     "https://i.pinimg.com/originals/70/9a/bf/709abf01d17e599c6319d4ffe5100d4c.gif"
   );
@@ -278,7 +264,11 @@ function buyArmor() {
   storeList.innerHTML = "";
 
   for (let i = 0; i < armor.length; i++) {
-    const element = [i];
+    const armorItem = armor[i];
+    const armorButton = document.createElement("button");
+    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Güç)";
+    armorButton.onclick = buyArmor.bind(null, i);
+    storeList.appendChild(armorButton);
   }
 }
 function sellWeapon() {
