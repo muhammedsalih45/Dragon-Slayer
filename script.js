@@ -21,24 +21,24 @@ const monsterHealthText = document.querySelector("#monsterHealth");
 const storeList = document.getElementById("storeList");
 const armor = [
   { name: "Goblin Döküm Zırhı", power: 5 },
-  { name: "Gölge Dansçısı Zırhı", power: 10 },
-  { name: "Buzul Muhafız Zırhı", power: 15 },
-  { name: "Karanlık Orman Zırhı", power: 20 },
-  { name: "Demir Melek Zırhı", power: 25 },
-  { name: "Ejder Pullu savaş zırhı", power: 30 },
-  { name: "Semavi Altın Zırh", power: 35 },
-  { name: "Fırtına Kabuğu Zırhı", power: 50 },
+  { name: "Gölge Dansçısı Zırhı", power: 10, price: 85 },
+  { name: "Buzul Muhafız Zırhı", power: 15, price: 90 },
+  { name: "Karanlık Orman Zırhı", power: 20, price: 95 },
+  { name: "Demir Melek Zırhı", power: 25, price: 100 },
+  { name: "Ejder Pullu savaş zırhı", power: 30, price: 105 },
+  { name: "Semavi Altın Zırh", power: 35, price: 110 },
+  { name: "Fırtına Kabuğu Zırhı", power: 50, price: 115 },
 ];
 const weapons = [
   { name: "Körelmiş Kanlı Balta", power: 5 },
-  { name: "Fırtına Yayı", power: 15 },
-  { name: "Güneş Mızrağı", power: 25 },
-  { name: "Kaos Bıçakları", power: 35 },
-  { name: "Ejderha Katili", power: 45 },
-  { name: "Şafak Kırıcı", power: 55 },
-  { name: "Kanlı Hilal Kaması", power: 65 },
-  { name: "Draupnir Mızrağı", power: 75 },
-  { name: "Excalibur Kılıcı", power: 80 },
+  { name: "Fırtına Yayı", power: 15, price: 50 },
+  { name: "Güneş Mızrağı", power: 25, price: 55 },
+  { name: "Kaos Bıçakları", power: 35, price: 60 },
+  { name: "Ejderha Katili", power: 45, price: 65 },
+  { name: "Şafak Kırıcı", power: 55, price: 70 },
+  { name: "Kanlı Hilal Kaması", power: 65, price: 75 },
+  { name: "Draupnir Mızrağı", power: 75, price: 80 },
+  { name: "Excalibur Kılıcı", power: 80, price: 85 },
 ];
 const monsters = [
   {
@@ -231,23 +231,24 @@ function buyWeapon(weaponIndex) {
       }
     } else {
       text.innerText = "Zaten en güçlü silaha sahipsiniz!";
-      button2.innerText = "15 Altın için eski silahlarınızı satabilirsiniz";
-      button2.onclick = sellWeapon;
+      button4.innerText = "15 Altın için eski silahlarınızı satabilirsiniz.";
+      button4.onclick = sellWeapon;
     }
   }
   storeList.innerHTML = "";
 
   for (let i = 1; i < weapons.length; i++) {
     const weapon = weapons[i];
-    const weaponcheck = document.createElement("input");
-    weaponcheck.type = "checkbox";
-    weaponcheck.id = "weapon" + i;
-    weaponcheck.style.marginTop = "-6%";
-    weaponcheck.style.marginBottom = "20px";
+    const weaponCheck = document.createElement("input");
+    weaponCheck.type = "checkbox";
+    weaponCheck.id = "weapon" + i;
+    weaponCheck.style.marginTop = "-6%";
+    weaponCheck.style.marginBottom = "20px";
     const weaponButton = document.createElement("div");
     weaponButton.style.textAlign = "center";
     weaponButton.style.marginBottom = "5px";
-    weaponButton.innerText = weapon.name + " (" + weapon.power + " Güç)";
+    weaponButton.innerText =
+      weapon.name + " (" + weapon.power + " Güç, " + weapon.price + " Altın)";
     weaponButton.onclick = buyWeapon.bind(null, i);
     const closeButton = document.createElement("div");
     closeButton.style.position = "absolute";
@@ -263,7 +264,7 @@ function buyWeapon(weaponIndex) {
     };
     storeList.appendChild(closeButton);
     storeList.appendChild(weaponButton);
-    storeList.appendChild(weaponcheck);
+    storeList.appendChild(weaponCheck);
   }
   const weaponButton2 = document.createElement("button");
   weaponButton2.innerText = "Eşyayı al";
@@ -271,10 +272,45 @@ function buyWeapon(weaponIndex) {
   weaponButton2.style.width = "100%";
   weaponButton2.style.borderRadius = "30px";
   weaponButton2.style.border = "none";
+  weaponButton2.style.cursor = "pointer";
   weaponButton2.style.backgroundImage =
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51))";
   weaponButton2.style.padding = "10px";
   storeList.appendChild(weaponButton2);
+
+  weaponButton2.addEventListener("click", buySelectedItems);
+
+  function buySelectedItems(event) {
+    const selectedItems = Array.from(
+      event.target.parentNode.querySelectorAll("input[type=checkbox]:checked")
+    ).map((checkbox) => checkbox.nextElementSibling.innerText);
+
+    if (gold >= selectedItems.length * 50) {
+      gold -= selectedItems.length * 50;
+      goldText.innerText = gold;
+
+      selectedItems.forEach((item) => {
+        inventory.push(selectedItems[item]);
+        currentWeapon++;
+      });
+
+      text.innerText = "Satın aldın: " + weapons[currentWeapon].name + ", ";
+
+      selectedItems.forEach((item) => {
+        const checkbox = event.target.parentNode.querySelector(
+          `input[id="${item.replace(" ", "")}"]`
+        );
+        checkbox.checked = false;
+        event.target.parentNode.removeChild(checkbox.parentNode);
+      });
+    } else {
+      text.innerText = "Yeterli altınınız yok. Daha fazla altın kazanıp gelin.";
+    }
+  }
+
+  // Apply the updated function to both the weapon and armor event listeners
+  weaponButton2.addEventListener("click", buySelectedItems);
+  armorButton2.addEventListener("click", buySelectedItems);
 }
 
 function buyArmor(armorIndex) {
@@ -299,7 +335,7 @@ function buyArmor(armorIndex) {
   }
   storeList.innerHTML = "";
 
-  for (let i = 0; i < armor.length; i++) {
+  for (let i = 1; i < armor.length; i++) {
     const armorItem = armor[i];
     const armorcheck = document.createElement("input");
     armorcheck.type = "checkbox";
@@ -309,12 +345,18 @@ function buyArmor(armorIndex) {
     const armorButton = document.createElement("div");
     armorButton.style.textAlign = "center";
     armorButton.style.marginBottom = "10px";
-    armorButton.innerText = armorItem.name + " (" + armorItem.power + " Güç) ";
+    armorButton.innerText =
+      armorItem.name +
+      " (" +
+      armorItem.power +
+      " Güç, " +
+      armorItem.price +
+      " Altın)";
     armorButton.onclick = buyArmor.bind(null, i);
     const closeButton = document.createElement("div");
     closeButton.style.position = "absolute";
     closeButton.style.display = "block";
-    closeButton.style.top = "23%";
+    closeButton.style.top = "29%";
     closeButton.style.right = "8%";
     closeButton.style.padding = "5px";
     closeButton.style.cursor = "pointer";
@@ -337,6 +379,34 @@ function buyArmor(armorIndex) {
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51))";
   armorButton2.style.padding = "10px";
   storeList.appendChild(armorButton2);
+
+  armorButton2.addEventListener("click", buySelectedItems);
+
+  function buySelectedItems() {
+    const selectedItems = Array.from(
+      storeList.querySelectorAll("input[type=checkbox]:checked")
+    ).map((checkbox) => checkbox.nextElementSibling.innerText);
+
+    if (gold >= selectedItems.length * 85) {
+      gold -= selectedItems.length * 85;
+      goldText.innerText = gold;
+
+      selectedItems.forEach((item) => {
+        inventory.push(selectedItems[item]);
+        currentArmor++;
+      });
+
+      text.innerText = "Satın aldın: " + armor[currentArmor].name + ".";
+
+      selectedItems.forEach((item) => {
+        const checkbox = item.previousElementSibling;
+        checkbox.checked = false;
+        storeList.removeChild(checkbox.parentNode);
+      });
+    } else {
+      text.innerText = "Yeterli altınınız yok. Daha fazla kazanıp gelin.";
+    }
+  }
 }
 function sellWeapon() {
   if (inventory.length > 1) {
