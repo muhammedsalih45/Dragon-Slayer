@@ -48,22 +48,22 @@ const monsters = [
   },
   {
     name: "Hortlak",
-    level: 8,
+    level: 10,
     health: 60,
   },
   {
     name: "Grifon",
-    level: 10,
+    level: 20,
     health: 100,
   },
   {
     name: "Dağ golemi",
-    level: 13,
+    level: 30,
     health: 130,
   },
   {
     name: "Ejderha",
-    level: 30,
+    level: 50,
     health: 400,
   },
 ];
@@ -215,26 +215,8 @@ function buyHealth() {
   }
 }
 
-function buyWeapon(weaponIndex) {
+function buyWeapon() {
   storeList.style.display = "block";
-  if (weaponIndex !== undefined && weaponIndex < weapons.length) {
-    if (currentWeapon < weapons.length - 1) {
-      if (gold >= 50) {
-        gold -= 50;
-        currentWeapon++;
-        goldText.innerText = gold;
-        let newWeapon = weapons[currentWeapon].name;
-        text.innerText = "Yeni silah " + newWeapon + ".";
-        inventory.push(newWeapon);
-      } else {
-        text.innerText = "Silah almak için yeterli altınınız yok.";
-      }
-    } else {
-      text.innerText = "Zaten en güçlü silaha sahipsiniz!";
-      button4.innerText = "15 Altın için eski silahlarınızı satabilirsiniz.";
-      button4.onclick = sellWeapon;
-    }
-  }
   storeList.innerHTML = "";
 
   for (let i = 1; i < weapons.length; i++) {
@@ -303,7 +285,7 @@ function buyWeapon(weaponIndex) {
         const checkbox = event.target.parentNode.querySelector(
           `input[id="${item.replace(" ", "")}"]`
         );
-        checkbox.checked = false;
+
         event.target.parentNode.removeChild(checkbox.parentNode);
       });
     } else {
@@ -312,31 +294,12 @@ function buyWeapon(weaponIndex) {
   }
 
   // Apply the updated function to both the weapon and armor event listeners
-  weaponButton2.addEventListener("click", buySelectedItems);
-  armorButton2.addEventListener("click", buySelectedItems);
+  // weaponButton2.addEventListener("click", buySelectedItems);
+  // armorButton2.addEventListener("click", buySelectedItems);
 }
 
-function buyArmor(armorIndex) {
+function buyArmor() {
   storeList.style.display = "block";
-  if (armorIndex !== undefined && armorIndex < armor.length) {
-    if (currentArmor < armor.length - 1) {
-      if (gold >= 85) {
-        gold -= 85;
-        currentArmor++;
-        goldText.innerText = gold;
-        let newArmor = armor[currentArmor].name;
-        text.innerText = "Yeni zırh " + newArmor + ".";
-        inventory.push(newArmor);
-      } else {
-        text.innerText = "Zırh almak için yeterli altınınız yok.";
-      }
-    } else {
-      text.innerText = "Zaten en güçlü zırhına sahipsiniz!";
-      button4.innerText = "20 Altın için eski zırhlarınızı satabilirsiniz.";
-      button4.onclick = sellArmor;
-    }
-  }
-  //... rest of the function
   storeList.innerHTML = "";
 
   for (let i = 1; i < armor.length; i++) {
@@ -394,21 +357,30 @@ function buyArmor(armorIndex) {
       storeList.querySelectorAll("input[type=checkbox]:checked")
     ).map((checkbox) => checkbox.nextElementSibling.innerText);
 
-    if (gold >= selectedItems.length * 85) {
-      gold -= selectedItems.length * 85;
+    const itemsToBuy = selectedItems.filter(
+      (item) => !inventory.includes(item)
+    );
+
+    if (gold >= itemsToBuy.length * 85) {
+      gold -= itemsToBuy.length * 85;
       goldText.innerText = gold;
 
-      selectedItems.forEach((item) => {
-        inventory.push(selectedItems[item]);
-        currentArmor++;
+      itemsToBuy.forEach((item) => {
+        inventory.push(item);
+        // Güncelleme: currentArmor veya currentWeapon güncellemesi burada yapılmalı
+        // Örneğin, armor veya weapon listesinden uygun index bulunarak güncellenebilir
       });
 
-      text.innerText = "Satın aldın: " + armor[currentArmor].name + ".";
+      text.innerText = "Satın aldın: " + itemsToBuy.join(", ") + ".";
 
-      selectedItems.forEach((item) => {
-        const checkbox = item.previousElementSibling;
-        checkbox.checked = false;
-        storeList.removeChild(checkbox.parentNode);
+      itemsToBuy.forEach((item) => {
+        const checkbox = storeList.querySelector(
+          `input[checkbox-id="${item}"]`
+        );
+        if (checkbox) {
+          checkbox.checked = false;
+          storeList.removeChild(checkbox.parentNode);
+        }
       });
     } else {
       text.innerText = "Yeterli altınınız yok. Daha fazla kazanıp gelin.";
