@@ -242,6 +242,9 @@ function buyWeapon(weaponIndex) {
     const weaponCheck = document.createElement("input");
     weaponCheck.type = "checkbox";
     weaponCheck.id = "weapon" + i;
+    weaponCheck.style.cursor = "pointer";
+    weaponCheck.style.width = "20%";
+    weaponCheck.style.height = "20px";
     weaponCheck.style.marginTop = "-6%";
     weaponCheck.style.marginBottom = "20px";
     const weaponButton = document.createElement("div");
@@ -253,7 +256,7 @@ function buyWeapon(weaponIndex) {
     const closeButton = document.createElement("div");
     closeButton.style.position = "absolute";
     closeButton.style.display = "block";
-    closeButton.style.top = "29%";
+    closeButton.style.top = "22%";
     closeButton.style.right = "8%";
     closeButton.style.padding = "5px";
     closeButton.style.cursor = "pointer";
@@ -328,11 +331,12 @@ function buyArmor(armorIndex) {
         text.innerText = "Zırh almak için yeterli altınınız yok.";
       }
     } else {
-      text.innerText = "Zaten en güçlü zırha sahipsiniz.";
+      text.innerText = "Zaten en güçlü zırhına sahipsiniz!";
       button4.innerText = "20 Altın için eski zırhlarınızı satabilirsiniz.";
       button4.onclick = sellArmor;
     }
   }
+  //... rest of the function
   storeList.innerHTML = "";
 
   for (let i = 1; i < armor.length; i++) {
@@ -340,7 +344,10 @@ function buyArmor(armorIndex) {
     const armorcheck = document.createElement("input");
     armorcheck.type = "checkbox";
     armorcheck.id = "armor" + i;
-    armorcheck.style.marginTop = "-6%";
+    armorcheck.style.cursor = "pointer";
+    armorcheck.style.width = "20%";
+    armorcheck.style.height = "20px";
+    armorcheck.style.marginTop = "-7%";
     armorcheck.style.marginBottom = "20px";
     const armorButton = document.createElement("div");
     armorButton.style.textAlign = "center";
@@ -356,7 +363,7 @@ function buyArmor(armorIndex) {
     const closeButton = document.createElement("div");
     closeButton.style.position = "absolute";
     closeButton.style.display = "block";
-    closeButton.style.top = "29%";
+    closeButton.style.top = "27%";
     closeButton.style.right = "8%";
     closeButton.style.padding = "5px";
     closeButton.style.cursor = "pointer";
