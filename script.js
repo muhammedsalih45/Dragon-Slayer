@@ -294,8 +294,8 @@ function buyWeapon() {
   }
 
   // Apply the updated function to both the weapon and armor event listeners
-  // weaponButton2.addEventListener("click", buySelectedItems);
-  // armorButton2.addEventListener("click", buySelectedItems);
+  weaponButton2.addEventListener("click", buySelectedItems);
+  armorButton2.addEventListener("click", buySelectedItems);
 }
 
 function buyArmor() {
@@ -342,6 +342,7 @@ function buyArmor() {
   const armorButton2 = document.createElement("button");
   armorButton2.innerText = "Eşyayı al";
   armorButton2.style.display = "block";
+  armorButton2.style.cursor = "pointer";
   armorButton2.style.width = "100%";
   armorButton2.style.borderRadius = "30px";
   armorButton2.style.border = "none";
