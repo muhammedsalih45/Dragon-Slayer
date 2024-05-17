@@ -48,17 +48,17 @@ const monsters = [
   },
   {
     name: "Hortlak",
-    level: 10,
+    level: 15,
     health: 60,
   },
   {
     name: "Grifon",
-    level: 15,
+    level: 20,
     health: 100,
   },
   {
     name: "Dağ golemi",
-    level: 20,
+    level: 30,
     health: 130,
   },
   {
