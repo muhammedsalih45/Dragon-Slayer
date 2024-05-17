@@ -20,25 +20,25 @@ const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
 const storeList = document.getElementById("storeList");
 const armor = [
-  { name: "Goblin Döküm Zırhı", power: 5 },
+  { name: "Goblin Döküm Zırhı", power: 5, price: 0 },
   { name: "Gölge Dansçısı Zırhı", power: 10, price: 80 },
-  { name: "Buzul Muhafız Zırhı", power: 15, price: 90 },
-  { name: "Karanlık Orman Zırhı", power: 20, price: 100 },
-  { name: "Demir Melek Zırhı", power: 25, price: 110 },
-  { name: "Ejder Pullu savaş zırhı", power: 30, price: 120 },
-  { name: "Semavi Altın Zırh", power: 35, price: 130 },
-  { name: "Fırtına Kabuğu Zırhı", power: 50, price: 150 },
+  { name: "Buzul Muhafız Zırhı", power: 15, price: 130 },
+  { name: "Karanlık Orman Zırhı", power: 20, price: 180 },
+  { name: "Demir Melek Zırhı", power: 25, price: 230 },
+  { name: "Ejder Pullu savaş zırhı", power: 30, price: 280 },
+  { name: "Semavi Altın Zırh", power: 35, price: 330 },
+  { name: "Fırtına Kabuğu Zırhı", power: 50, price: 380 },
 ];
 const weapons = [
-  { name: "Körelmiş Kanlı Balta", power: 5 },
+  { name: "Körelmiş Kanlı Balta", power: 5, price: 0 },
   { name: "Fırtına Yayı", power: 15, price: 50 },
-  { name: "Güneş Mızrağı", power: 25, price: 80 },
-  { name: "Kaos Bıçakları", power: 35, price: 90 },
-  { name: "Ejderha Katili", power: 45, price: 100 },
-  { name: "Şafak Kırıcı", power: 55, price: 130 },
-  { name: "Kanlı Hilal Kaması", power: 65, price: 140 },
-  { name: "Draupnir Mızrağı", power: 75, price: 150 },
-  { name: "Excalibur Kılıcı", power: 80, price: 160 },
+  { name: "Güneş Mızrağı", power: 25, price: 100 },
+  { name: "Kaos Bıçakları", power: 35, price: 150 },
+  { name: "Ejderha Katili", power: 45, price: 200 },
+  { name: "Şafak Kırıcı", power: 55, price: 250 },
+  { name: "Kanlı Hilal Kaması", power: 65, price: 300 },
+  { name: "Draupnir Mızrağı", power: 75, price: 350 },
+  { name: "Excalibur Kılıcı", power: 80, price: 400 },
 ];
 const monsters = [
   {
@@ -63,7 +63,7 @@ const monsters = [
   },
   {
     name: "Ejderha",
-    level: 50,
+    level: 45,
     health: 400,
   },
 ];
@@ -319,7 +319,15 @@ function buyWeapon() {
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "X";
   closeBtn.style.cursor = "pointer";
+  closeBtn.style.marginTop = "-25%";
+  closeBtn.style.borderRadius = "20px";
+  closeBtn.style.backgroundImage =
+    "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51)) ";
+  closeBtn.style.border = "none";
   closeBtn.style.position = "absolute";
+  closeBtn.addEventListener("click", function () {
+    storeList.style.display = "none";
+  });
   weaponButton.innerText = "Satın al";
   weaponButton.style.cursor = "pointer";
   weaponButton.style.width = "100%";
@@ -374,6 +382,7 @@ function buyWeapon() {
   });
 
   storeList.appendChild(weaponButton);
+  storeList.appendChild(closeBtn);
   storeList.style.display = "block";
 }
 function selectWeapon(e) {
@@ -395,6 +404,18 @@ function selectWeapon(e) {
 function buyArmor() {
   storeList.innerHTML = "";
   const armorButton = document.createElement("button");
+  const closeBtn = document.createElement("button");
+  closeBtn.innerText = "X";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.style.position = "absolute";
+  closeBtn.style.marginTop = "-23%";
+  closeBtn.style.borderRadius = "20px";
+  closeBtn.style.backgroundImage =
+    "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51)) ";
+  closeBtn.style.border = "none";
+  closeBtn.addEventListener("click", function () {
+    storeList.style.display = "none";
+  });
   armorButton.innerText = "Satın al";
   armorButton.style.cursor = "pointer";
   armorButton.style.width = "100%";
@@ -449,6 +470,7 @@ function buyArmor() {
   });
 
   storeList.appendChild(armorButton);
+  storeList.appendChild(closeBtn);
   storeList.style.display = "block";
 }
 
