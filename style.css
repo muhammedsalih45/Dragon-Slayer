@@ -40,6 +40,7 @@ body {
   display: flex;
   font-size: 15px;
   padding: 10px;
+  border-radius: 0 0 20px 20px;
 }
 
 #game {

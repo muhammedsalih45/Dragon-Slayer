@@ -72,7 +72,7 @@ const locations = [
     name: "town square",
     "button text": ["Mağazaya git", "Mağaraya git", "Ejderha ile savaş"],
     "button functions": [goStore, goCave, fightDragon],
-    text: 'Kasaba meydanındasınız. "Mağaza" yazan bir tabela görüyorsunuz.',
+    text: 'Şehir meydanındasınız. "Mağaza" yazan bir tabela görüyorsunuz.',
   },
   {
     name: "store",
