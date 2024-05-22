@@ -127,13 +127,13 @@ const locations = [
     name: "lose",
     "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "TEKRAR DENE?"],
     "button functions": [restart, restart, restart],
-    text: "ÖLDÜN. &#x2620; <br> Hikayemin böyle bitmemesi lazım bir yanlışlık var.",
+    text: "ÖLDÜN. &#x2620; <br> -Oreon: Hikayemin böyle bitmemesi lazım bir yanlışlık var.",
   },
   {
     name: "win",
     "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "Şehir Merkezi Dön?"],
     "button functions": [restart, restart, goTown],
-    text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389; . Sonunda bu zorlu yolculuğumu tamamladım ve nihai gücüme ulaştım bundan sonraki yolculuğum nasıl olucak. İnsanlara yardım edecek bir avare olarak mı? Yoksa kendim için yaşayarak mı yaşamımı devam ettiricem? Bunu bana yol ve insanlar göstericek",
+    text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389;.<br> Sonunda bu zorlu yolculuğumu tamamladım ve nihai gücüme ulaştım bundan sonraki yolculuğum nasıl olucak. İnsanlara yardım edecek bir avare olarak mı? Yoksa kendim için yaşayarak mı yaşamımı devam ettiricem? Bunu bana yol ve insanlar göstericek",
   },
   {
     name: "easter egg",
@@ -250,17 +250,17 @@ function pick(guess) {
     numbers.push(Math.floor(Math.random() * 11));
   }
 
-  text.innerHTML = "Sayılar: ";
+  text.innerText = "Sayılar: ";
   for (let i = 0; i < 10; i++) {
-    text.innerHTML += numbers[i] + " ";
+    text.innerText += numbers[i] + " ";
   }
 
   if (numbers.indexOf(guess) !== -1) {
-    text.innerHTML += "<p>Kazandın! 20 altın kazandın.</p>";
+    text.innerText += "<p>Kazandın! 20 altın kazandın.</p>";
     gold += 20; // Altını artır
     goldText.innerText = gold; // Altın metnini güncelle
   } else {
-    text.innerHTML += "<p>Kaybettin! 10 can kaybettin.</p>";
+    text.innerText += "<p>Kaybettin! 10 can kaybettin.</p>";
     health -= 10; // Canı azalt
     healthText.innerText = health; // Can metnini güncelle
     if (health <= 0) {
@@ -379,7 +379,7 @@ function buyWeapon() {
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "X";
   closeBtn.style.cursor = "pointer";
-  closeBtn.style.marginTop = "-25%";
+  closeBtn.style.marginTop = "-19%";
   closeBtn.style.borderRadius = "20px";
   closeBtn.style.backgroundImage =
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51)) ";
@@ -429,8 +429,8 @@ function buyWeapon() {
     checkWeapon.type = "checkbox";
     checkWeapon.id = "weapons" + index;
     checkWeapon.style.cursor = "pointer";
-    checkWeapon.style.marginRight = "5px"; // Checkboxların arasında biraz boşluk bırakmak için
-    listItem.appendChild(checkWeapon); // Checkbox'u liste öğesine ekliyoruz
+    checkWeapon.style.marginRight = "5px";
+    listItem.appendChild(checkWeapon);
     listItem.style.listStyleType = "none";
     listItem.style.marginBottom = "15px";
     listItem.innerHTML += weapon.name + " - " + weapon.price + " Altın";
@@ -468,7 +468,7 @@ function buyArmor() {
   closeBtn.innerText = "X";
   closeBtn.style.cursor = "pointer";
   closeBtn.style.position = "absolute";
-  closeBtn.style.marginTop = "-23%";
+  closeBtn.style.marginTop = "-20%";
   closeBtn.style.borderRadius = "20px";
   closeBtn.style.backgroundImage =
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51)) ";
