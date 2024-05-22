@@ -83,7 +83,7 @@ const locations = [
       "Zırh Satın Al",
     ],
     "button functions": [buyHealth, buyWeapon, goTown, buyArmor],
-    text: "Ne almak istersiniz yüce kahraman",
+    text: "Hoşgeldiniz yüce kahraman Orpheus ne isterdiniz",
   },
   {
     name: "cave",
@@ -93,7 +93,7 @@ const locations = [
       "Şehir merkezine dön",
     ],
     "button functions": [fightSlime, fightBeast, goTown],
-    text: "Mağaraya girdin. Bazı canavarlar gördün. Savaşmaya hazırlıklı ol.",
+    text: "Mağaraya girdin. Eldric'in bahsettiği canavarları gördün. Savaşmaya hazırlıklı ol.",
   },
   {
     name: "deep cave",
@@ -104,7 +104,7 @@ const locations = [
       "Şehir merkezine dön",
     ],
     "button functions": [fightGrifon, fightGolem, goCave, goTown],
-    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gördün çıkış olabileceğini düşündün ve oraya doğru gittin. Burasıda ne böyle yıkılmış bir kilise mi?  Temkinli olmakta fayda var.",
+    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı çıkış olabileceğini düşündün ve oraya doğru gittin. Burasıda ne böyle yıkılmış bir kilise mi?  Temkinli olmakta fayda var.",
   },
   {
     name: "fight",
@@ -132,7 +132,7 @@ const locations = [
     name: "win",
     "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "Şehir Meydanına Dön?"],
     "button functions": [restart, restart, goTown],
-    text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389;",
+    text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389; . Sonunda bu zorlu yolculuğumu tamamladım ve nihai gücüme ulaştım bundan sonraki yolculuğum nasıl olucak. İnsanlara yardım ederek mi? yoksa kendim için yaşayarak mı yaşamımı devam ettiricem? Bunu bana yol ve insanlar göstericek",
   },
   {
     name: "easter egg",
@@ -244,7 +244,7 @@ function dodge() {
 }
 
 function defeatMonster() {
-  gold += Math.floor(monsters[fighting].level * 6.7);
+  gold += Math.floor(monsters[fighting].level * 6.9);
   xp += monsters[fighting].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
@@ -261,7 +261,7 @@ function restart() {
   gold = 50;
   currentWeapon = 0;
   currentArmor = 0;
-  inventory = ["Körelmiş Kanlı Balta"];
+  inventory = ["Körelmiş Kanlı Balta", "Goblin Döküm Zırhı"];
   goTown();
   healthText.innerText = health;
   goldText.innerText = gold;
@@ -300,6 +300,25 @@ function pick(guess) {
   } else {
     text.innerHTML += "<p>Kaybettin!</p>";
   }
+}
+
+function inventoryShow() {
+  inventoryList.innerHTML = "";
+  inventory = inventoryList;
+  const inventoryBtn = document.createElement("button");
+  const inventoryList = document.createElement("li");
+  inventoryBtn.innerText = "Envanter";
+  inventoryBtn.style.cursor = "pointer";
+  inventoryBtn.style.display = "block";
+  inventoryList.style.display = "block";
+  inventoryList.style.listStyle = "none";
+  inventoryTable.style.backgroundImage =
+    "linear-gradient(rgb(59, 1, 173),  rgb(15, 0, 176),  rgb(51, 0, 99))";
+  inventoryBtn.addEventListener("click", function () {
+    if (inventoryBtn.click) {
+      inventoryTable.style.display = "block";
+    }
+  });
 }
 
 function buyHealth() {
