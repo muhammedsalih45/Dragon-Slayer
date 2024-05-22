@@ -48,7 +48,7 @@ const monsters = [
   },
   {
     name: "Hortlak",
-    level: 15,
+    level: 10,
     health: 60,
   },
   {
@@ -62,7 +62,7 @@ const monsters = [
     health: 130,
   },
   {
-    name: "Ejderha",
+    name: "Kadim Ejderha Balerion",
     level: 45,
     health: 400,
   },
@@ -118,27 +118,28 @@ const locations = [
       "Mağarada kal",
       "Mağara derinliklerinde kal",
       "Şehir meydanına git",
+      "Bir el gvent oyna",
     ],
-    "button functions": [goCave, goDeepCave, goTown],
+    "button functions": [goCave, goDeepCave, goTown, easterEgg],
     text: 'Canavar ölürken "Arg!" diye bağırır. Deneyim puanı kazandın ve altın buldun.',
   },
   {
     name: "lose",
     "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "TEKRAR DENE?"],
     "button functions": [restart, restart, restart],
-    text: "ÖLDÜN. &#x2620;",
+    text: "ÖLDÜN. &#x2620; <br> Hikayemin böyle bitmemesi lazım bir yanlışlık var.",
   },
   {
     name: "win",
-    "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "Şehir Meydanına Dön?"],
+    "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "Şehir Merkezi Dön?"],
     "button functions": [restart, restart, goTown],
-    text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389; . Sonunda bu zorlu yolculuğumu tamamladım ve nihai gücüme ulaştım bundan sonraki yolculuğum nasıl olucak. İnsanlara yardım ederek mi? yoksa kendim için yaşayarak mı yaşamımı devam ettiricem? Bunu bana yol ve insanlar göstericek",
+    text: "Ejderhay'ı alt ettin! OYUNU KAZANDIN! &#x1F389; . Sonunda bu zorlu yolculuğumu tamamladım ve nihai gücüme ulaştım bundan sonraki yolculuğum nasıl olucak. İnsanlara yardım edecek bir avare olarak mı? Yoksa kendim için yaşayarak mı yaşamımı devam ettiricem? Bunu bana yol ve insanlar göstericek",
   },
   {
     name: "easter egg",
-    "button text": ["2", "8", "Şehir merkezine dön?"],
+    "button text": ["2", "8", "Şehir Merkezi dön"],
     "button functions": [pickTwo, pickEight, goTown],
-    text: "Gizli bir oyun buluyorsun. Yukarıdan bir sayı seçin. Rastgele 0 ile 10 arasında on sayı seçilecek. Seçtiğiniz sayı rastgele sayılardan biriyle eşleşirse, kazanırsınız!",
+    text: "Hey sen. Evet sen gelip benimle birkaç el oyun oynamaya ne dersin. Kazanmana garanti vermiyorum bu oyunda iyiyimdir. Oyun kuralları kolay. Rastgele 0 ile 10 arasında on sayı seçilecek. Seçtiğiniz sayı rastgele sayılardan biriyle eşleşirse, kazanırsın. Eğer değilse şansına küs birdahakine daha şanslı olursun belki.",
   },
 ];
 
@@ -231,6 +232,43 @@ function fightDragon() {
   goFight();
 }
 
+function easterEgg() {
+  update(locations[8]);
+}
+
+function pickTwo() {
+  pick(2);
+}
+
+function pickEight() {
+  pick(8);
+}
+
+function pick(guess) {
+  const numbers = [];
+  while (numbers.length < 10) {
+    numbers.push(Math.floor(Math.random() * 11));
+  }
+
+  text.innerHTML = "Sayılar: ";
+  for (let i = 0; i < 10; i++) {
+    text.innerHTML += numbers[i] + " ";
+  }
+
+  if (numbers.indexOf(guess) !== -1) {
+    text.innerHTML += "<p>Kazandın! 20 altın kazandın.</p>";
+    gold += 20; // Altını artır
+    goldText.innerText = gold; // Altın metnini güncelle
+  } else {
+    text.innerHTML += "<p>Kaybettin! 10 can kaybettin.</p>";
+    health -= 10; // Canı azalt
+    healthText.innerText = health; // Can metnini güncelle
+    if (health <= 0) {
+      lose(); // Eğer can 0 veya daha azsa, kaybetme fonksiyonunu çağır
+    }
+  }
+}
+
 function goFight() {
   update(locations[4]);
   monsterHealth = monsters[fighting].health;
@@ -249,6 +287,9 @@ function defeatMonster() {
   goldText.innerText = gold;
   xpText.innerText = xp;
   update(locations[5]);
+  button4.onclick = easterEgg;
+  button4.style.display = "block";
+  button4.innerText = "Bir el gvent oyna";
 }
 
 function lose() {

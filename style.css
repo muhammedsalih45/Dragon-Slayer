@@ -38,13 +38,13 @@ body {
   color: rgb(238, 255, 0);
   justify-content: center;
   display: flex;
-  font-size: 13.5px !important;
-  padding: 5px;
+  font-size: 15px;
+  padding: 10px;
 }
 
 #game {
   min-width: 87%;
-  max-height: 400px;
+
   background-color: rgb(87, 87, 87);
   color: rgb(251, 255, 0);
   background-repeat: no-repeat;
