@@ -21,13 +21,13 @@ const monsterHealthText = document.querySelector("#monsterHealth");
 const storeList = document.getElementById("storeList");
 const armor = [
   { name: "Goblin Döküm Zırhı", power: 5, price: 0 },
-  { name: "Gölge Dansçısı Zırhı", power: 10, price: 80 },
-  { name: "Buzul Muhafız Zırhı", power: 15, price: 130 },
-  { name: "Karanlık Orman Zırhı", power: 20, price: 180 },
-  { name: "Demir Melek Zırhı", power: 25, price: 230 },
-  { name: "Ejder Pullu savaş zırhı", power: 30, price: 280 },
-  { name: "Semavi Altın Zırh", power: 35, price: 330 },
-  { name: "Fırtına Kabuğu Zırhı", power: 50, price: 380 },
+  { name: "Gölge Dansçısı Zırhı", power: 20, price: 80 },
+  { name: "Buzul Muhafız Zırhı", power: 25, price: 130 },
+  { name: "Karanlık Orman Zırhı", power: 30, price: 180 },
+  { name: "Demir Melek Zırhı", power: 35, price: 230 },
+  { name: "Ejder Pullu savaş zırhı", power: 40, price: 280 },
+  { name: "Semavi Altın Zırh", power: 45, price: 330 },
+  { name: "Fırtına Kabuğu Zırhı", power: 70, price: 380 },
 ];
 const weapons = [
   { name: "Körelmiş Kanlı Balta", power: 5, price: 0 },
@@ -104,7 +104,7 @@ const locations = [
       "Şehir merkezine dön",
     ],
     "button functions": [fightGrifon, fightGolem, goCave, goTown],
-    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı. Çıkış olabileceğini düşündün ve oraya doğru gittin. <br> -Orion: Burasıda ne böyle yıkılmış bir kilise mi? Belkide eskiden Gölge Lordlarının mabedi olabilir. Yine de temkinli olmakta fayda var.",
+    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı. Çıkış olabileceğini düşündün ve oraya doğru gittin. <br> -Orion: Burasıda ne böyle yıkılmış bir kilise mi? Hislerim dengesizleşmeye başladı burda benden önce benim gibiler bulunmuş olmalı. Yine de temkinli olmakta fayda var.",
   },
   {
     name: "fight",
@@ -139,7 +139,7 @@ const locations = [
     name: "easter egg",
     "button text": ["2", "8", "Şehir Merkezi dön"],
     "button functions": [pickTwo, pickEight, goTown],
-    text: "Hey sen. Evet sen gelip benimle birkaç el oyun oynamaya ne dersin. Kazanmana garanti vermiyorum bu oyunda iyiyimdir. Oyun kuralları kolay. Rastgele 0 ile 10 arasında on sayı seçilecek. Seçtiğiniz sayı rastgele sayılardan biriyle eşleşirse, kazanırsın. Eğer değilse şansına küs birdahakine daha şanslı olursun belki.",
+    text: "Hey sen. Evet sen gelip benimle birkaç el oyun oynamaya ne dersin. Kazanıcana garanti vermiyorum bu oyunda iyiyimdir. Oyun kuralları kolay. Rastgele 0 ile 10 arasında on sayı seçilecek. Seçtiğiniz sayı rastgele sayılardan biriyle eşleşirse, kazanırsın. Eğer değilse şansına küs birdahakine daha şanslı olursun belki.",
   },
 ];
 
@@ -347,6 +347,7 @@ function pick(guess) {
     }
   }
 }
+
 function inventoryShow() {
   inventoryList.innerHTML = "";
   inventory = inventoryList;
@@ -383,7 +384,7 @@ function buyWeapon() {
   const closeBtn = document.createElement("button");
   closeBtn.innerText = "X";
   closeBtn.style.cursor = "pointer";
-  closeBtn.style.marginTop = "-19%";
+  closeBtn.style.marginTop = "-23%";
   closeBtn.style.borderRadius = "20px";
   closeBtn.style.backgroundImage =
     "linear-gradient(rgb(254, 204, 76), rgb(255, 172, 51)) ";
