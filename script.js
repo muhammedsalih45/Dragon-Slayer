@@ -104,7 +104,7 @@ const locations = [
       "Şehir merkezine dön",
     ],
     "button functions": [fightGrifon, fightGolem, goCave, goTown],
-    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı. Çıkış olabileceğini düşündün ve oraya doğru gittin. <br> -Orion: Burasıda ne böyle yıkılmış bir kilise mi? Belkide eskiden asil kan kahramanlarının mabedi olabilir. Yine de temkinli olmakta fayda var.",
+    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı. Çıkış olabileceğini düşündün ve oraya doğru gittin. <br> -Orion: Burasıda ne böyle yıkılmış bir kilise mi? Belkide eskiden Gölge Lordlarının mabedi olabilir. Yine de temkinli olmakta fayda var.",
   },
   {
     name: "fight",
@@ -255,7 +255,7 @@ function pick(guess) {
     text.innerText += numbers[i] + " ";
   }
 
-  if (numbers.indexOf(guess) !== -1) {
+  if (numbers.indexOf(guess) == -1) {
     text.innerText += "<p>Kazandın! 20 altın kazandın.</p>";
     gold += 20; // Altını artır
     goldText.innerText = gold; // Altın metnini güncelle
@@ -326,23 +326,27 @@ function pickEight() {
 }
 
 function pick(guess) {
-  let numbers = [];
+  const numbers = [];
   while (numbers.length < 10) {
     numbers.push(Math.floor(Math.random() * 11));
   }
-
-  text.innerHTML = "Sayılar: ";
+  text.innerText = "Şunu seçtin " + guess + ". İşte rastgele sayılar \n";
   for (let i = 0; i < 10; i++) {
-    text.innerHTML += numbers[i] + " ";
+    text.innerText += numbers[i] + "\n";
   }
-
-  if (numbers.indexOf(guess) !== -1) {
-    text.innerHTML += "<p>Kazandın!</p>";
+  if (numbers.includes(guess)) {
+    text.innerText += "Doğru! 20 Altın kazandın!";
+    gold += 20;
+    goldText.innerText = gold;
   } else {
-    text.innerHTML += "<p>Kaybettin!</p>";
+    text.innerText += "Yanlış! 10 Can kaybettin!";
+    health -= 10;
+    healthText.innerText = health;
+    if (health <= 0) {
+      lose();
+    }
   }
 }
-
 function inventoryShow() {
   inventoryList.innerHTML = "";
   inventory = inventoryList;
