@@ -83,7 +83,7 @@ const locations = [
       "Zırh Satın Al",
     ],
     "button functions": [buyHealth, buyWeapon, goTown, buyArmor],
-    text: "Hoşgeldiniz yüce kahraman Orpheus ne isterdiniz",
+    text: "Hoşgeldin yüce kahraman Orion ne isterdiniz",
   },
   {
     name: "cave",
@@ -104,7 +104,7 @@ const locations = [
       "Şehir merkezine dön",
     ],
     "button functions": [fightGrifon, fightGolem, goCave, goTown],
-    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı çıkış olabileceğini düşündün ve oraya doğru gittin. Burasıda ne böyle yıkılmış bir kilise mi?  Temkinli olmakta fayda var.",
+    text: "Mağaranın devam ettiğini gördün ilerlemeye karar verdin. Bir ışık süzmesi gözüne çarptı. Çıkış olabileceğini düşündün ve oraya doğru gittin. <br> -Orion: Burasıda ne böyle yıkılmış bir kilise mi? Belkide eskiden asil kan kahramanlarının mabedi olabilir. Yine de temkinli olmakta fayda var.",
   },
   {
     name: "fight",
@@ -121,13 +121,13 @@ const locations = [
       "Bir el gvent oyna",
     ],
     "button functions": [goCave, goDeepCave, goTown, easterEgg],
-    text: 'Canavar ölürken "Arg!" diye bağırır. Deneyim puanı kazandın ve altın buldun.',
+    text: 'Canavar ölürken "Arg!" diye bağırır. Deneyim puanı kazandın ve altın buldun. <br> -Orion: Artık bana bulaşmamayı öğrenmişinizdir',
   },
   {
     name: "lose",
     "button text": ["TEKRAR DENE?", "TEKRAR DENE?", "TEKRAR DENE?"],
     "button functions": [restart, restart, restart],
-    text: "ÖLDÜN. &#x2620; <br> -Oreon: Hikayemin böyle bitmemesi lazım bir yanlışlık var.",
+    text: "ÖLDÜN. &#x2620; <br> -Orion: Hikayemin böyle bitmemesi lazım bir yanlışlık var.",
   },
   {
     name: "win",

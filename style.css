@@ -36,11 +36,11 @@ body {
 #text {
   background-color: rgb(10, 10, 35);
   color: rgb(234, 255, 0);
-  justify-content: center;
   text-align: center;
-
   font-size: 15px;
   padding: 10px;
+  max-height: 50%;
+  overflow: auto;
   border-radius: 0 0 20px 20px;
 }
 
@@ -57,11 +57,21 @@ body {
     rgb(0, 63, 63)
   );
   margin: 30px auto 0px;
-  padding: 10px;
+  padding: 5px;
   border-radius: 20px;
 }
 
-#controls,
+#controls {
+  color: rgb(238, 255, 0);
+  justify-content: center;
+  display: flex;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(10, 10, 35);
+  border-image: initial;
+  padding: 5px;
+}
+
 #stats {
   color: rgb(238, 255, 0);
   justify-content: center;
@@ -71,6 +81,7 @@ body {
   border-color: rgb(10, 10, 35);
   border-image: initial;
   padding: 5px;
+  border-radius: 20px 20px 0 0;
 }
 
 #monsterStats {
